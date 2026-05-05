@@ -1,0 +1,8 @@
+services:
+    app:
+        build: .
+        image: calmxin/oracle-keep-alive:1.0
+        container_name: oracle-keep-alive
+        restart: unless-stopped
+        volumes:
+            - .:/workspace
