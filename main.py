@@ -17,8 +17,8 @@ from loguru import logger
 
 # ===== 配置区 =====
 CONFIG: Dict[str, Any] = {
-    "cpu_target": 0.15,  # 目标 CPU 使用率 (15%)
-    "memory_mb": 80,  # 内存占用 (MB)
+    "cpu_target": 0.50,  # 目标 CPU 使用率 (15%)
+    "memory_mb": 3000,  # 内存占用 (MB)
     "net_interval_sec": 300,  # 网络请求间隔 (秒)
     "ping_urls": [
         "https://www.google.com",
@@ -46,10 +46,10 @@ class OracleKeepAlive:
         logger.info(f"CPU worker started (target: {self.cpu_target * 100:.1f}%)")
         while not self._stop:
             start = time.time()
-            total = sum(i * i for i in range(40000))  # 模拟计算
+            _ = sum(i * i for i in range(4_000_000))  # 模拟计算
             elapsed = time.time() - start
             if elapsed > 0:
-                sleep_time = max(0.01, (elapsed / self.cpu_target) - elapsed)
+                sleep_time = max(0.0001, (elapsed / self.cpu_target) - elapsed)
                 time.sleep(sleep_time)
             else:
                 time.sleep(0.1)
